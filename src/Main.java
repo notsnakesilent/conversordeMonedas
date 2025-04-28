@@ -87,7 +87,7 @@ public class Main {
     }
 
     private static double obtenerTasaConversion(String monedaOrigen, String monedaDestino) throws Exception {
-        // Usando URI en lugar de URL (deprecado)
+
         URI uri = new URI(API_URL + monedaOrigen);
         HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
         connection.setRequestMethod("GET");
@@ -104,12 +104,9 @@ public class Main {
             }
             reader.close();
 
-            // Implementación sin la biblioteca org.json
             String jsonResponse = response.toString();
 
-            // Verificamos si la respuesta fue exitosa
             if (jsonResponse.contains("\"result\":\"success\"")) {
-                // Buscamos la sección de tasas de conversión y la moneda destino
                 String tasasSection = jsonResponse.substring(jsonResponse.indexOf("\"conversion_rates\":{") + 19);
                 tasasSection = tasasSection.substring(0, tasasSection.indexOf("}"));
 
